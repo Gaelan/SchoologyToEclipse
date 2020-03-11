@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -157,7 +158,8 @@ public class ZipConverter {
      */
     void renameProject(String projectName, Path projectFile) throws IOException {
         String projectFileText = new String(Files.readAllBytes(projectFile));
-        projectFileText = projectFileText.replaceAll("<name>.*</name>", "<name>" + projectName + "</name>");
+        // TODO: this is sketchy
+        projectFileText = projectFileText.replaceFirst("<name>.*</name>", "<name>" + projectName + "</name>");
         Files.write(projectFile, projectFileText.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
     }
 
